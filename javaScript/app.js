@@ -18,14 +18,16 @@
 
 // alert(promptStr);
 
-// じゃんけん入力欄
+// ---- じゃんけん入力欄 始点 ----
 var user_hand = prompt('じゃんけんの手をグー、チョキ、パーから選んでください。');
 
 while((user_hand !="グー")&&(user_hand !="チョキ")&&(user_hand !="パー")&&(user_hand !=null)){
 	alert('グー・チョキ・パーのいずれかを入力して下さい');
 	user_hand = prompt('じゃんけんの手をグー、チョキ、パーから選んでください。')
 }
+// ---- じゃんけん入力欄 始点 ----
 
+// ---- じゃんけん結果出力 始点 ----
 var js_hand = getJShand();
 
 var judge = winLose(user_hand,js_hand);
@@ -35,6 +37,8 @@ if(user_hand != null){
 }else{
 	alert("またチェレンジしてね")
 }
+
+  // ---- じゃんけんランダムに出す 始点 ----
 function getJShand(){
 	var js_hand_num = Math.floor( Math.random()*3);
 	// 0~2までの数字をランダム選択
@@ -48,8 +52,9 @@ function getJShand(){
 	}
 	return hand_name;
 }
+  // ---- じゃんけんランダムに出す 終点 ----
 
-// じゃんけんの手を比べる関数
+  // ---- じゃんけん結果判断 始点 ----
 function winLose(user,js){
 	var winLoseStr;
 
@@ -80,3 +85,5 @@ function winLose(user,js){
 	}
 	return winLoseStr;
 	}
+  // ---- じゃんけん結果判断 終点 ----
+// ---- じゃんけん結果出力 終点 ----

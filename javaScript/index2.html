@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <title>電卓</title>
 </head>
-<body>
   <script>
     // 入力ダイヤログ
     // var promptStr = prompt('何か好きな文字を入力してください。');
@@ -28,13 +27,43 @@
     //   console.log("numAは１です");
     // }
 
-    for(var i = 0, j = 0; i < 5; i++){
-      console.log("i="+i);
-      console.log("j="+(j+=2));
-      console.log("======");
+    // for(var i = 0, j = 0; i < 5; i++){
+    //   console.log("i="+i);
+    //   console.log("j="+(j+=2));
+    //   console.log("======");
+    // }
+
+// HTMLの書き換え
+  window.onload = function(){
+    // テキストの書き換え
+    var button = document.getElementById("button1");
+    button1.onclick = function(){
+      var elem = document.getElementById("sample");
+      elem.textContent = "書き換えました";
     }
 
+    // テキストの追加
+    var button = document.getElementById("button2");
+    button2.onclick = function(){
+      var elem = document.createElement("p");
+      elem.textContent = "追記しました";
+      // 追加場所の指定
+      var sample = document.getElementById("sample")
+      document.body.insertBefore(elem,sample.nextSibling);
+    }
 
+    // テキストの削除
+    var button = document.getElementById("button3");
+      button3.onclick = function(){
+        var elem = document.getElementById("sample");
+        document.body.removeChild(elem);
+      }
+  };
   </script>
+<body>
+  <p id="sample">要素を取得</p>
+  <input id="button1" type="button" value="テキストを書き換える">
+  <input id="button2" type="button" value="要素を追加する">
+  <input id="button3" type="button" value="テキストを削除する">
 </body>
 </html>

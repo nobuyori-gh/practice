@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <title>電卓</title>
-</head>
   <script>
     // 入力ダイヤログ
     // var promptStr = prompt('何か好きな文字を入力してください。');
@@ -34,36 +33,70 @@
     // }
 
 // HTMLの書き換え
-  window.onload = function(){
-    // テキストの書き換え
-    var button = document.getElementById("button1");
-    button1.onclick = function(){
-      var elem = document.getElementById("sample");
-      elem.textContent = "書き換えました";
-    }
-
-    // テキストの追加
-    var button = document.getElementById("button2");
-    button2.onclick = function(){
-      var elem = document.createElement("p");
-      elem.textContent = "追記しました";
-      // 追加場所の指定
-      var sample = document.getElementById("sample")
-      document.body.insertBefore(elem,sample.nextSibling);
-    }
-
-    // テキストの削除
-    var button = document.getElementById("button3");
-      button3.onclick = function(){
-        var elem = document.getElementById("sample");
-        document.body.removeChild(elem);
-      }
+window.onload = function(){
+  // テキストの書き換え
+  var button1 = document.getElementById("button1");
+  button1.onclick = function(){
+    var elem = document.getElementById("sample");
+    elem.textContent = "書き換えました";
   };
-  </script>
+
+  // テキストの追加
+  var button2 = document.getElementById("button2");
+  button2.onclick = function(){
+    var elem = document.createElement("p");
+    elem.textContent = "追記しました";
+    // 追加場所の指定
+    var sample = document.getElementById("sample")
+    document.body.insertBefore(elem,sample.nextSibling);
+  };
+
+  // テキストの削除
+  var button3 = document.getElementById("button3");
+  button3.onclick = function(){
+    var elem = document.getElementById("sample");
+    document.body.removeChild(elem);
+  };
+
+// 要素オブジェクトのプロパティとしてイベントハンドラーを定義
+  var button = document.getElementById("button4");
+  button.onclick = function(){
+    window.alert("クリックしました");
+  };
+};
+
+// 要素のタブ内でイベントハンドラーを定義
+function buttonClick(){
+  window.alert('クリックしました');
+};
+
+// イベントリスナーの定義
+window.addEventListener("DOMContentLoaded", function(){
+  var button = document.getElementById("button5");
+  button.addEventListener("click", function(){
+    window.alert("クリック");
+  });
+  button.addEventListener("click", function(){
+    window.alert("２回目のクリック");
+  });
+  // イベントをキャンセル(リンク)
+  var link = document.getElementById("link");
+  link.addEventListener("click", function(event){
+    event.preventDefault();
+    window.alert("リンクがクリックされました");
+  });
+});
+
+</script>
+</head>
 <body>
   <p id="sample">要素を取得</p>
   <input id="button1" type="button" value="テキストを書き換える">
   <input id="button2" type="button" value="要素を追加する">
   <input id="button3" type="button" value="テキストを削除する">
+  <input type="button" value="クリック1" onClick="buttonClick();">
+  <input id="button4" type="button" value="クリック2">
+  <input id="button5" type="button" value="クリック(イベントリスナー)">
+  <a href="http://www.google.co.jp" id="link">リンク</a>
 </body>
 </html>

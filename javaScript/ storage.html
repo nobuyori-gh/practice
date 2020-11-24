@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ストレージ保存・参照・削除</title>
+  <script>
+    // localStorageを利用しデータを保存
+    var storage = localStorage;
+    storage.setItem("foo","bar");
+
+    storage.removeItem("foo");
+
+    // 保存したデータを参照
+    console.log(storage.getItem("foo"));
+  </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>日付</title>
+  <script>
+    // Dateオブジョクトのインスタンスを2017/9/10で生成
+    var date = new Date(2017,8,10);
+    // 日にちを1日にセット
+    date.setDate(1);
+    // 年月日を取得
+    var year = date.getFullYear();
+    var month = date.getMonth() +1;
+    var day = date.getDate();
+    // 取得した曜日を漢字に置き換える
+    var weekdays = ["日","月","火","水","木","金","土"];
+    var weekday = weekdays[date.getDay()];
+
+    var str = "今日は" + year + "年" + month + "月" + day + "日(" + weekday + ") です";
+    console.log(str);
+  </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>カレンダー</title>
+  <script>
+    window.onload = function(){
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth()+1;
+    // var today = date.getDate();
+
+    // 当月１日の日付を取得
+    var firstDate = new Date(year, month-1, 1);
+    // 当月の月末日を取得(翌月の0日を指定する)
+    var lastDate = new Date(year, month, 0);
+
+    // 当月の表示
+    var table_title = year +"年 " + month + "月";
+    var captionHtml = "<caption>"+table_title +"</caption>";
+
+    // 曜日の行を作成
+    var weekdays = ["日","月","火","水","木","金","土"];
+    var weekdaysStr = "<tr>";
+    for ( var i=0; i<7; i++){
+      if(i==0){
+        weekdaysStr += "<td class='sun'>" + weekdays[i] + "</td>";
+      }else if(i==6){
+        weekdaysStr += "<td class='sat'>" + weekdays[i] + "</td>";
+      }else{
+        weekdaysStr += "<td>" + weekdays[i] + "</td>";
+      }
+    };
+    weekdaysStr += "</tr>";
+
+    // カレンダーの日付セル部分を作成
+    var htmlStr = "<tr>";
+    // 当月１日の曜日
+    var startWeekDay = firstDate.getDay();
+    // １日までを‏‏空白で埋める
+    for ( var i=0; i<startWeekDay; i++ ){
+      htmlStr += "<td>&nbsp;</td>";
+    };
+
+    // １日から月末日まで繰り返す
+    for(var i=1; i<=lastDate.getDate(); i++){
+      // 当月i日のDateオブジョクトを生成
+      var date = new Date(year,month-1,i);
+      // i日の曜日を取得
+      var weekDay = date.getDay();
+      var dateStr = year+"."+month+"."+i;
+      // 日を取得
+      var cellStr = date.getDate();
+      cellStr ="<u>" + cellStr +"</u>";
+
+      // 日曜日の場合は行の開始のため<tr>
+      if(weekDay==0) htmlStr += "<tr>";
+
+      if(weekDay==0){
+        htmlStr += "<td class='sun'>";
+      }else if(weekDay==6){
+        htmlStr += "<td class='sat'>";
+      }else{
+        htmlStr += "<td>";
+      };
+      htmlStr += cellStr + "</a></td>"
+
+      // 土曜日の場合 行の終わりのため</tr>
+      if(weekDay==6) htmlStr += "</tr>\n";
+    };
+
+    // 月末日の曜日
+    var lastDayWeek = lastDate.getDay();
+    // 月末日が土曜日でない場合は空白セルでテーブルを埋める
+    if(lastDate.getDay() !=6){
+      // 月末日の翌日の曜日から土曜日まで繰り返す
+      for(var i=lastDayWeek+1; i<=6; i++){
+        htmlStr += "<td>&nbsp;</td>";
+      };
+      htmlStr += "</tr>";
+    };
+    // HTMLの書き換え
+    // 補足 captionHtmlは当月の表示  weekdaysStrは曜日の行  htmlStrはカレンダー部分
+    document.getElementById("calendar").innerHTML = "<table>"+ captionHtml + weekdaysStr + htmlStr + "</table>";
+  };
+  </script>
+</head>
+<body>
+  <div id="calendar" class="calendar"></div>
+</body>
+</html>

@@ -7,7 +7,7 @@
     var date = new Date();
     var year = date.getFullYear();
     var month = date.getMonth()+1;
-    // var today = date.getDate();
+    var today = date.getDate();
 
     // 当月１日の日付を取得
     var firstDate = new Date(year, month-1, 1);
@@ -28,7 +28,7 @@
         weekdaysStr += "<td class='sat'>" + weekdays[i] + "</td>";
       }else{
         weekdaysStr += "<td>" + weekdays[i] + "</td>";
-      }
+      };
     };
     weekdaysStr += "</tr>";
 

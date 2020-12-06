@@ -3,6 +3,40 @@
 <head>
   <title>カレンダー</title>
   <script>
+    // 指定した日時の日記を表示
+    function presetDiary(dateStr){
+      // ボタンのdate属性にキーの日記部分を指定
+      // 日記保存のためボタンをクリックした際に日付を渡すため
+      var button = document.getElementById("button");
+      button.setAttribute("data-date", dateStr);
+
+      // 日記の日付を表示
+      var diary_date = document.getElementById("diary_date");
+      diary_date.innerHTML = dateStr;
+
+      // localStorageから日記の本文とタイトルを取得
+      var title = localStorage[dateStr+"_title"];
+      var body  = localStorage[dateStr+"_body"];
+
+      // 日記の入力欄を取得
+      var diary_title = document.getElementById("dairy_title");
+      var dairy_body  = document.getElementById("dairy_body");
+      // 日記のデータがあれば表示
+      if(title){
+        dairy_title.value = title;
+      }else{
+        dairy_title.value = "";
+      };
+      if(body){
+        dairy_body.value = body;
+      }else{
+        dairy_body.value = "";
+      };
+    };
+
+    // 日記を保存　ここに追記
+
+
     // HTMLが読み込まれてから処理する
     window.onload = function(){
       var date = new Date();
@@ -14,6 +48,9 @@
       var firstDate = new Date(year, month-1, 1);
       // 当月の月末日を取得(翌月の0日を指定)
       var lastDate = new Date(year, month, 0);
+
+      // 本日の日記のプリセット
+
 
       // 当月の表示
       var table_title = year +"年 " + month + "月";
@@ -48,10 +85,10 @@
         var date = new Date(year,month-1,i);
         // i日の曜日を取得
         var weekDay = date.getDay();
-        // var dateStr = year+"."+month+"."+i;
+        var dateStr = year+"."+month+"."+i;
         // 日を取得
         var cellStr = date.getDate();
-        // cellStr ="<u>" + cellStr +"</u>";
+        if(localStorage[dateStr+"_title"]) cellStr ="<u>" + cellStr +"</u>";
 
         // 日曜日の場合は行の開始のため<tr>
         if(weekDay==0) htmlStr += "<tr>";
@@ -65,7 +102,8 @@
           htmlStr += "<td>";
         };
 
-        htmlStr += cellStr + "</td>";
+        // 日付をクリックした際に日記を表示
+        htmlStr += "<a onclick='presetDiary(\"" + dateStr + "\");'>" + cellStr + "</a></td>";
 
         // 土曜日の場合 行の終わりのため</tr>
         if(weekDay==6) htmlStr += "</tr>\n";
@@ -85,10 +123,27 @@
       // 補足 captionHtmlは当月の表示  weekdaysStrは曜日の行  htmlStrはカレンダー部分
       document.getElementById("calendar").innerHTML = "<table>"+ captionHtml + weekdaysStr + htmlStr + "</table>";
     };
-</script>
-<link rel="stylesheet" href="css/calender.css" media="all">
+  </script>
+  <link rel="stylesheet" href="css/calender.css" media="all">
 </head>
 <body>
-  <div id="calendar" class="calendar"></div>
+  <div class="frame-box">
+    <!-- カレンダー画面 -->
+    <div class="calender-box">
+      <div id="calendar" class="calendar"></div>
+    </div>
+
+    <!-- 日記画面 -->
+    <div class="diary-box">
+      <!-- 日付を出力 -->
+      <div id="diary-date" class="diary-date"></div>
+      <!-- タイトル入力欄(1行のテキストボックス) -->
+      <input type="text" id="diary_title"><br><br>
+      <!-- 本文入力欄(2行以上のテキストボックス) -->
+      <textarea id="diary_body" rows="10" cols="18"></textarea><br><br>
+      <!-- 保存ボタン thisはdiary_boxを参照し保存する -->
+      <input type="button" id="button" onclick="onSave(this)" value="保存">
+    </div>
+  </div>
 </body>
 </html>

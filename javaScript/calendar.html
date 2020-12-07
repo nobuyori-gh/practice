@@ -34,8 +34,12 @@
       };
     };
 
-    // 日記を保存　ここに追記
+    // 日記を保存
+    function onSave(obj){
+      // ボタンのdate属性から日付文字列を取得
+      var dateStr = obj.getAttribute("date-date");
 
+    }
 
     // HTMLが読み込まれてから処理する
     window.onload = function(){
